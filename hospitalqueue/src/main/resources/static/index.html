@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareQueue | Hospital Queue Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <div>
+            <h1>CareQueue</h1>
+            <p>Hospital Queue Management System</p>
+        </div>
+        <span class="system-status">System Online</span>
+    </header>
+
+    <main class="container">
+
+        <section class="welcome">
+            <h2>Receptionist Dashboard</h2>
+            <p>Register patients and manage the consultation queue.</p>
+        </section>
+
+        <section class="stats">
+            <div class="stat-card">
+                <p>Total Patients</p>
+                <h2 id="totalPatients">0</h2>
+            </div>
+
+            <div class="stat-card">
+                <p>Waiting</p>
+                <h2 id="waitingPatients">0</h2>
+            </div>
+
+            <div class="stat-card">
+                <p>In Consultation</p>
+                <h2 id="consultingPatients">0</h2>
+            </div>
+
+            <div class="stat-card">
+                <p>Completed</p>
+                <h2 id="completedPatients">0</h2>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Register New Patient</h2>
+
+            <form id="patientForm">
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="name">Patient Name</label>
+                        <input type="text" id="name" required
+                               placeholder="Enter full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" min="1" max="120"
+                               required placeholder="Enter age">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" required
+                               pattern="[0-9]{10}" maxlength="10"
+                               placeholder="10-digit phone number">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="department">Department</label>
+                        <select id="department" required>
+                            <option value="">Select department</option>
+                            <option value="Cardiology">Cardiology</option>
+                            <option value="Dermatology">Dermatology</option>
+                            <option value="General Medicine">General Medicine</option>
+                            <option value="Orthopedics">Orthopedics</option>
+                            <option value="Pediatrics">Pediatrics</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="doctor">Doctor</label>
+                        <input type="text" id="doctor" required
+                               placeholder="Enter doctor's name">
+                    </div>
+
+                </div>
+
+                <button type="submit" class="primary-button">
+                    Register Patient
+                </button>
+
+                <p id="formMessage" class="message" role="status"></p>
+            </form>
+        </section>
+
+        <section class="panel">
+            <div class="queue-heading">
+                <div>
+                    <h2>Patient Queue</h2>
+                    <p>View and manage registered patients.</p>
+                </div>
+
+                <div class="queue-actions">
+                    <button id="refreshButton"
+                            class="secondary-button"
+                            type="button">
+                        Refresh Queue
+                    </button>
+
+                    <button id="exportButton"
+                            class="secondary-button"
+                            type="button">
+                        Export CSV
+                    </button>
+                </div>
+            </div>
+
+            <div id="queueMessage" class="message" role="status"></div>
+
+            <div class="queue-filters">
+
+                <div class="form-group">
+                    <label for="searchInput">Search Patients</label>
+                    <input type="text"
+                           id="searchInput"
+                           placeholder="Search name, phone or doctor...">
+                </div>
+
+                <div class="form-group">
+                    <label for="departmentFilter">Department</label>
+                    <select id="departmentFilter">
+                        <option value="">All Departments</option>
+                        <option value="Cardiology">Cardiology</option>
+                        <option value="Dermatology">Dermatology</option>
+                        <option value="General Medicine">General Medicine</option>
+                        <option value="Orthopedics">Orthopedics</option>
+                        <option value="Pediatrics">Pediatrics</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="doctorFilter">Doctor</label>
+                    <select id="doctorFilter">
+                        <option value="">All Doctors</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="statusFilter">Patient Status</label>
+                    <select id="statusFilter">
+                        <option value="">All Statuses</option>
+                        <option value="WAITING">Waiting</option>
+                        <option value="IN_CONSULTATION">In Consultation</option>
+                        <option value="COMPLETED">Completed</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Queue No.</th>
+                            <th>Patient</th>
+                            <th>Age</th>
+                            <th>Department</th>
+                            <th>Doctor</th>
+                            <th>Status</th>
+                            <th>Estimated Wait</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="patientTableBody">
+                        <tr>
+                            <td colspan="8">Loading patients...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>CareQueue Hospital Queue Management System</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
